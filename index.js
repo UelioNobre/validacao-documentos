@@ -1,3 +1,20 @@
+function federativeRegistration(cpf) {
+  const states = {
+    1: "DF, GO, MS, MT e TO",
+    2: "AC, AM, AP, PA, RO e RR",
+    3: "CE, MA e PI",
+    4: "AL, PB, PE e RN",
+    5: "BA e SE",
+    6: "MG",
+    7: "ES e RJ",
+    8: "SP",
+    9: "PR e SC",
+    0: "RS",
+  }
+
+  return states[cpf[8]];
+}
+
 function isRepeated(cpf) {
   const sum = cpf
     .map((n) => cpf[0] === n ? 1 : 0)
@@ -36,20 +53,22 @@ function checkDigit(cpf, position) {
   const verify = getDigit(values);
   const validPosition = cpf[position] === verify;
   if (validPosition === false) {
-    throw new ReferenceError(`Digito verificador inválido: ${cpf.join('')}`);
+    throw new ReferenceError('Digito verificador inválido', { cause: cpf.join('') });
   }
 
   return validPosition;
 }
 
 const cpfs = require('./cpfs-validos');
-
+let i = 0
 try {
-  for (let i = 0; i < cpfs.length; i += 1) {
-    const digits = extractNumbers(cpfs[i]);
+  for (i = 0; i < cpfs.length; i += 1) {
+    const digits = extractNumbers(cpfs[i].trim());
     checkDigit(digits, 9);
     checkDigit(digits, 10);
+    console.log(digits.join(''), federativeRegistration(digits));
   }
 } catch (error) {
-  console.log(error.message)
+  console.log(error.message, i)
+  console.log(error);
 }
