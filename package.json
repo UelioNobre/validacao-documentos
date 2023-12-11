@@ -1,0 +1,11 @@
+{
+  "name": "validator-cpf-cnpj",
+  "version": "1.0.0",
+  "description": "Um validador de CPF e CNPJ com javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Uélio Nobre",
+  "license": "ISC"
+}
