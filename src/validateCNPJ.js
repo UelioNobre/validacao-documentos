@@ -1,3 +1,13 @@
+function isRepeated(value, length) {
+  const sum = value
+    .map((n) => value[0] === n ? 1 : 0)
+    .reduce((acc, n) => acc += n);
+
+  if (sum === length) {
+    throw new TypeError('Documento contém todos os números iguais.');
+  }
+}
+
 function extractNumbers(str) {
   return str
     .match(/\d/g)
@@ -31,6 +41,7 @@ function checkDigit(cnpj, digit, position) {
 
 function validateCNPJ(cnpj) {
   const cnpjDigits = extractNumbers(cnpj);
+  isRepeated(cnpjDigits, 14);
 
   [
     { position: 12, startFactor: 5 },
