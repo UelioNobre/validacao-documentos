@@ -109,6 +109,99 @@ Para explorar os detalhes do erro, acesse a propriedade `cause` da instância de
 #### `RangeError`
 - Números do CPF são insuficientes. Ou seja, a quantidade informada é diferente de 11 (número sem pontos e hifen).
 
+
+## Validação do documento CNPJ
+
+A validação do CNPJ segue algumas regras específicas para garantir sua integridade e unicidade. Aqui estão alguns pontos importantes sem apresentar código fonte:
+
+- **Número Fixo de Dígitos:** O CNPJ possui um número fixo de 14 dígitos, distribuídos em blocos específicos que representam diferentes informações sobre a entidade.
+
+- **Dígitos Verificadores:** Os dois últimos dígitos do CNPJ são conhecidos como dígitos verificadores. Eles são calculados com base nos 12 primeiros dígitos do número, utilizando um algoritmo específico.
+
+- **Blocos de Identificação:** Os oito primeiros dígitos representam a identificação da empresa, os quatro dígitos seguintes referem-se ao número de ordem da filial (caso exista), e os dois últimos são os dígitos verificadores.
+
+- **Caracteres Especiais:** O CNPJ inclui caracteres especiais, como barras e pontos, que são utilizados para facilitar a leitura, mas que são desconsiderados nos cálculos.
+
+- **Unicidade:** Cada CNPJ é único para uma determinada entidade, o que significa que não pode haver dois CNPJs iguais.
+
+A verificação da validade de um CNPJ é importante para garantir que o número fornecido esteja correto e atenda às regras estabelecidas pela Receita Federal. Essas regras são implementadas para prevenir erros de digitação e assegurar a consistência das informações registradas.
+
+
+## Exemplos de utilização
+
+### Validar um documento CNPJ
+
+```javascript
+const cnpjs = require('./exemplos/examples-cnpjs');
+const validateCNPJ = require('./src/validateCNPJ');
+
+try {
+  const result = validateCNPJ('11.111.111/1111-11');
+  console.log({ result: result })
+} catch ({ cause }) {
+  console.log(cause)
+}
+```
+
+<details>
+<summary>Exemplo de saída</summary>
+
+```javascript
+// CNPJ válido
+{ valid: true, cnpj: '11.222.333/0001-81' }
+```
+
+```javascript
+// CNPJ Inválido
+{
+  valid: false,
+  cnpj: '11.111.111/1111-11',
+  message: 'Documento contém todos os números iguais.'
+}
+```
+
+</details>
+
+---
+
+### Validar vários documentos CNPJ
+```javascript
+const cnpjs = require('./exemplos/examples-cnpjs');
+const validateCNPJ = require('./src/validateCNPJ');
+
+// Valida vários CNPJs
+cnpjs.forEach((cnpj) => {
+  try {
+    const result = validateCNPJ(cnpj);
+    console.log(result)
+  } catch ({ cause }) {
+    console.log(cause)
+  }
+});
+
+```
+
+<details>
+<summary>Exemplo de saída</summary>
+
+```javascript
+// Saída no terminal
+{ 
+  valid: true, 
+  cnpj: '11.222.333/0001-81' 
+  }
+{
+  valid: false,
+  cnpj: '28.562.509/0001-79',
+  message: 'Digito verificador inválido.'
+}
+{ 
+  valid: true, 
+  cnpj: '01.851.716/0001-65' 
+a}
+```
+
+</details>
+
 ## Dependências
 - Nenhuma
-
