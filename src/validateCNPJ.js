@@ -55,15 +55,4 @@ function validateCNPJ(cnpj) {
   return true;
 }
 
-// Experimentando...
-const cnpjs = [
-  "11.222.333/0001-81",
-  "01.851.716/0001-65",
-  "28.569.509/0001-79",
-];
-
-cnpjs.forEach((cnpj) => {
-  validateCNPJ(cnpj);
-});
-
-
+module.exports = validateCNPJ;
