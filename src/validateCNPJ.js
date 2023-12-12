@@ -40,6 +40,8 @@ function validateCNPJ(cnpj) {
     const digit = getDigit(digits, startFactor);
     checkDigit(cnpjDigits, digit, position)
   });
+
+  return true;
 }
 
 // Experimentando...
