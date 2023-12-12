@@ -198,7 +198,7 @@ cnpjs.forEach((cnpj) => {
 { 
   valid: true, 
   cnpj: '01.851.716/0001-65' 
-  }
+a}
 ```
 
 </details>
