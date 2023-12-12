@@ -1,3 +1,5 @@
+const DocumentValidationError = require("./validationError");
+
 function isRepeated(value, length) {
   const sum = value
     .map((n) => value[0] === n ? 1 : 0)
@@ -41,18 +43,23 @@ function checkDigit(cnpj, digit, position) {
 
 function validateCNPJ(cnpj) {
   const cnpjDigits = extractNumbers(cnpj);
-  isRepeated(cnpjDigits, 14);
 
-  [
-    { position: 12, startFactor: 5 },
-    { position: 13, startFactor: 6 }
-  ].forEach(({ position, startFactor }) => {
-    const digits = getInterval(cnpjDigits, position);
-    const digit = getDigit(digits, startFactor);
-    checkDigit(cnpjDigits, digit, position)
-  });
+  try {
+    isRepeated(cnpjDigits, 14);
 
-  return true;
+    [
+      { position: 12, startFactor: 5 },
+      { position: 13, startFactor: 6 }
+    ].forEach(({ position, startFactor }) => {
+      const digits = getInterval(cnpjDigits, position);
+      const digit = getDigit(digits, startFactor);
+      checkDigit(cnpjDigits, digit, position)
+    });
+
+    return { valid: true, cnpj }
+  } catch ({ message }) {
+    throw new DocumentValidationError(message, { valid: false, cnpj, message });
+  }
 }
 
 module.exports = validateCNPJ;
