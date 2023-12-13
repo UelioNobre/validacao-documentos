@@ -79,9 +79,11 @@ function checkDigitCpf(cpf, position) {
  * @returns {Array<number>}
  */
 function calculateIntervalCpf(cpf, limit) {
-  return product = cpf
+  const product = cpf
     .filter((_, i) => i < limit)
     .map((n, i) => n * ((limit + 1) - i))
+
+  return product;
 }
 
 /**
