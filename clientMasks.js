@@ -1,4 +1,4 @@
-const { maskCEP, maskCPF, maskPhone, maskDate, maskOnlyLetters, maskOnlyNumbers } = require("./src/masks");
+const { maskCEP, maskCPF, maskPhone, maskDate, maskOnlyLetters, maskOnlyNumbers } = require("./src/utils/masks");
 
 const cpf = '12345678901';
 console.log({ cpf, result: maskCPF(cpf) });

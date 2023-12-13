@@ -1,4 +1,4 @@
-const { maskCPF } = require("./masks");
+const { maskCPF } = require("./utils/masks");
 
 /**
  * Retorna todos os caracteres númericos o parâmentro `cpf`.
