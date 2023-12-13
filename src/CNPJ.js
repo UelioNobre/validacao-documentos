@@ -5,13 +5,13 @@ class CNPJ extends Document {
   constructor(document) {
     super(document);
     this.lengthDocument = 14;
-    this.type = 'CNPJ';
+    this.type = "CNPJ";
     this.checkValidate();
   }
 
   checkDigit(digit, position) {
     if (this.numbers[position] !== digit) {
-      throw new Error("Digito verificador inválido.")
+      throw new Error("Documento inválido")
     }
   }
 
@@ -51,7 +51,7 @@ class CNPJ extends Document {
 
   getMatriz() {
     const masked = this.getDocumentMasked();
-    const isMatriz = +(masked.split("/")[1].split('-')[0]) === 1;
+    const isMatriz = +(masked.split("/")[1].split("-")[0]) === 1;
     return isMatriz;
   }
 

@@ -10,8 +10,7 @@ class CPF extends Document {
 
   checkDigit(digit, position) {
     if (this.numbers[position] !== digit) {
-      const message = `${this.type} inválido.`
-      throw new ReferenceError(message);
+      this.throwError();
     }
   }
 

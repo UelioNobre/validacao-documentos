@@ -16,7 +16,7 @@ class Document {
 
   checkLength() {
     if (this.lengthDocument !== this.numbers.length) {
-      throw new RangeError("A quantidade de caracteres informada é inválida.")
+      this.throwError();
     }
   }
 
@@ -26,7 +26,7 @@ class Document {
       .reduce((acc, n) => acc + n, 0);
 
     if (sum === this.lengthDocument) {
-      throw new Error("Números repetidos são inválidos.")
+      this.throwError();
     }
   }
 
@@ -38,24 +38,29 @@ class Document {
 
   checkDigit(position, digit) {
     if ((this.numbers[position] !== digit)) {
-      throw new Error("Digito verificador inválido.")
+      this.throwError();
     }
   }
 
   calculateIntervalNumbers() {
-    throw new Error("Regra de calculo de intervalo não implementada.")
+    throw new Error("Método não implementado.");
   }
 
   getInfo() {
-    throw new Error("Informações do documento não implementada.")
+    throw new Error("Método não implementado.");
   }
 
   validate() {
-    throw new Error("Regra de validação não implementada.")
+    throw new Error("Método não implementado.");
   }
 
   getDocumentMasked() {
-    throw new Error("Mascará do documento não implementada.")
+    throw new Error("Método não implementado.");
+  }
+
+  throwError() {
+    const message = `Documento ${this.type} "${this.document}" inválido.`
+    throw new Error(message);
   }
 }
 
