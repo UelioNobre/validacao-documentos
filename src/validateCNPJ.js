@@ -1,3 +1,4 @@
+const { maskCNPJ } = require("./utils/masks");
 const DocumentValidationError = require("./validationError");
 
 function isRepeated(value, length) {
@@ -56,7 +57,7 @@ function validateCNPJ(cnpj) {
       checkDigit(cnpjDigits, digit, position)
     });
 
-    return { valid: true, cnpj }
+    return { valid: true, cnpj: maskCNPJ(cnpj) }
   } catch ({ message }) {
     throw new DocumentValidationError(message, { valid: false, cnpj, message });
   }
