@@ -8,6 +8,16 @@ function maskCPF(cpf) {
   return mask;
 }
 
+function maskCNPJ(cnpj) {
+  const mask = cnpj
+    .replace(/\D/g, "")
+    .replace(/(\d{2})(\d)/, "$1.$2")
+    .replace(/(\d{3})(\d)/, "$1.$2")
+    .replace(/(\d{3})(\d)/, "$1/$2")
+    .replace(/(\d{4})(\d{1,2})/, "$1-$2");
+  return mask;
+}
+
 // (00) 00000-0000
 const maskPhone = phone => {
   return phone
@@ -47,4 +57,5 @@ module.exports = {
   maskDate,
   maskOnlyLetters,
   maskOnlyNumbers,
+  maskCNPJ,
 }
