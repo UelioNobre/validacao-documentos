@@ -4,7 +4,7 @@ function maskCPF(cpf) {
     .replace(/(\d{3})(\d)/, "$1.$2")
     .replace(/(\d{3})(\d)/, "$1.$2")
     .replace(/(\d{3})(\d{1,2})/, "$1-$2")
-    .replace(/(-\d{2})\d+?$/, "$1");
+    .replace(/(-\d{2})\d+$/, "$1");
   return mask;
 }
 
@@ -18,7 +18,7 @@ const maskPhone = phone => {
 
 // 00000-000
 const maskCEP = cep => {
-  return cep.replace(/\D/g, "").replace(/^(\d{5})(\d{3})+?$/, "$1-$2")
+  return cep.replace(/\D/g, "").replace(/^(\d{5})(\d{3})+$/, "$1-$2")
 }
 
 // 00/00/0000
