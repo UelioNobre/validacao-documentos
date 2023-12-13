@@ -1,27 +1,21 @@
-const cnpjs = require('./exemplos/examples-cnpjs');
 const validateCNPJ = require('./src/validateCNPJ');
+const { cnpjsValidos, cnpjsInvalidos } = require('./exemplos/cnpjs');
+const cnpjs = [...cnpjsValidos, ...cnpjsInvalidos];
 
-// Valida somente um CNPJ
-console.log()
-console.log()
-try {
-  const result = validateCNPJ('11.111.111/1111-11');
-  console.log({ result: result })
-} catch ({ cause }) {
-  console.log(cause)
-}
-console.log()
-console.log()
-
-// Valida vários CNPJs
-cnpjs.forEach((cnpj) => {
+console.log("\n\nValidar vários CNPJs");
+for (const cnpj of cnpjs) {
   try {
     const result = validateCNPJ(cnpj);
-    console.log(result)
+    console.log({ result })
   } catch ({ cause }) {
     console.log(cause)
   }
-});
+};
 
-console.log()
-console.log()
+console.log("\n\nValidar somente um CNPJ");
+try {
+  const result = validateCPF(cnpjs[0])
+  console.log({ result });
+} catch (error) {
+  console.log(error.cause);
+}
