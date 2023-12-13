@@ -33,7 +33,7 @@ function extractNumbers(cpf) {
 function isRepeatedNumbers(cpf) {
   const sum = cpf
     .map((n) => cpf[0] === n ? 1 : 0)
-    .reduce((acc, n) => acc += n, 0);
+    .reduce((acc, n) => acc + n, 0);
 
   if (sum === 11) {
     throw new ReferenceError("Números repetidos", {
@@ -93,7 +93,7 @@ function calculateIntervalCpf(cpf, limit) {
  * @returns number
  */
 function getDigitCpf(values) {
-  const sum = values.reduce((acc, d) => acc += d, 0);
+  const sum = values.reduce((acc, d) => acc + d, 0);
   let verify = sum * 10 % 11;
 
   return verify !== 10 ? verify : 0

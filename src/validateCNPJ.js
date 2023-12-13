@@ -4,7 +4,7 @@ const DocumentValidationError = require("./validationError");
 function isRepeated(value, length) {
   const sum = value
     .map((n) => value[0] === n ? 1 : 0)
-    .reduce((acc, n) => acc += n, 0);
+    .reduce((acc, n) => acc + n, 0);
 
   if (sum === length) {
     throw new TypeError('Documento contém todos os números iguais.');
