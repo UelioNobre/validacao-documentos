@@ -24,8 +24,8 @@ function getDigit(cnpj, start) {
   let fatorInicial = start;
   let result = 0
 
-  for (let i = 0; i < cnpj.length; i++) {
-    result += cnpj[i] * fatorInicial
+  for (const digit of cnpj) {
+    result += digit * fatorInicial
 
     fatorInicial--;
     fatorInicial = (fatorInicial < 2) ? 9 : fatorInicial
