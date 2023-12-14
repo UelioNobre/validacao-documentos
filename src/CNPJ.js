@@ -11,7 +11,7 @@ class CNPJ extends Document {
 
   checkDigit(digit, position) {
     if (this.numbers[position] !== digit) {
-      throw new Error("Documento inválido")
+      this.throwError()
     }
   }
 
