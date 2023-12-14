@@ -1,5 +1,7 @@
 # validacao-documentos
 
+O objetivo deste repositório é fornecer funcionalidades simples e eficazes para validar números de CPF (Cadastro de Pessoa Física) e CNPJ (Cadastro Nacional da Pessoa Jurídica) em projetos JavaScript.
+
 ## Validação do documento CPF
 
 A validação do CPF é realizada através de um algoritmo específico, que verifica se o número fornecido atende a certas condições.
@@ -16,21 +18,21 @@ A regra de validação do CPF envolve os seguintes passos:
 
 A lógica por trás desse algoritmo é projetada para detectar erros comuns de digitação e garantir que o CPF tenha um formato válido. Vale notar que a validação do CPF apenas verifica a estrutura do número e não necessariamente se o CPF é real ou se corresponde a uma pessoa existente.
 
-## Exemplos de utilização
+### Exemplos de utilização
 
-### Validar um documento
+#### Validar um documento
 
 ```javascript
-const data = require('./exemplos/cpfs-validos');
-const validateCPF = require('./src/validateCPF');
+const CPF = require("./src/CPF");
+
+const cpf = "529.982.247-25";
 
 try {
-    // Valida somente 1
-    const validateOne = validateCPF(data[0]);
-    console.log(validateOne);
-  } catch ({ cause }) {
-    console.log(cause);
-  }
+  const result = new CPF(cpf);
+  console.log(result.validate());
+} catch (error) {
+  console.log(error.message)
+}
 
 ```
 
@@ -38,76 +40,75 @@ try {
 <summary>Exemplo de saída</summary>
 
 ```javascript
-// Saída no terminal
+// console.log(result)
 {
-  cpf: '051.394.027-85',
-  federativeRegistration: 'ES e RJ',
-  valid: true
+  document: '529.982.247-25',
+  type: 'CPF',
+  isValid: true,
+  taxRegion: 'ES e RJ'
 }
+
+// console.log(error.message)
+Documento CPF "529.982.247-26" inválido.
 ```
 
 </details>
 
 ---
 
-### Validar vários documentos
+#### Validar vários documentos
 ```javascript
-const data = require('./exemplos/cpfs-validos');
-const validateCPF = require('./src/validateCPF');
+const { cpfs } = require('./exemplos/cpfCnpj');
 
-// Valida um lote
-data.forEach(cpf => {
+const CPF = require("./src/CPF");
+
+for (const cpf of cpfs) {
   try {
-    console.log(validateCPF(cpf));
-  } catch ({ cause }) {
-    console.log(cause);
+    const result = new CPF(cpf);
+    console.log(result.validate());
+  } catch (error) {
+    console.log(error.message)
   }
-});
+}
 ```
 
 <details>
 <summary>Exemplo de saída</summary>
 
 ```javascript
-// Saída no terminal
+// console.log(result)
 {
-  cpf: '051.394.027-85',
-  federativeRegistration: 'ES e RJ',
-  valid: true
+  document: '529.982.247-25',
+  type: 'CPF',
+  isValid: true,
+  taxRegion: 'ES e RJ'
 }
 {
-  cpf: '145.713.977-47',
-  federativeRegistration: 'ES e RJ',
-  valid: true
+  document: '849.443.900-68',
+  type: 'CPF',
+  isValid: true,
+  taxRegion: 'RS'
 }
-{
-  cpf: '739.623.414-04',
-  federativeRegistration: 'AL, PB, PE e RN',
-  valid: true
-}
-{
-  cpf: '096.345.556-78',
-  federativeRegistration: 'MG',
-  message: 'Digito verificador inválido',
-  valid: false
-}
+
+// console.log(error.message)
+Documento CPF "040.738.473-18" inválido.
+Documento CPF "989.494.986-49" inválido.
 ```
 
 </details>
 
-## Erros
+### Erros
 
 O script poderá lançar alguns erros quando estiver em execução.
-Para a sua aplicação não para quando houver um erro, realize a chamada dentro de um bloco `try/catch` para capturar o erro.
+Para a sua aplicação não parar quando houver isso ocorrer, realize a chamada dentro de um bloco `try/catch`.
 
-Para explorar os detalhes do erro, acesse a propriedade `cause` da instância de erro.
+Qualquer inconsistência no documento informador poderá causar um erro do tipo`Error`.
 
-#### `ReferenceError`
+Alguma indícios do que pode ter ocorrido:
 - Digito verificador inválido.
-- O CPF é composto de somente números repetidos.
-
-#### `RangeError`
-- Números do CPF são insuficientes. Ou seja, a quantidade informada é diferente de 11 (número sem pontos e hifen).
+- O CPF é composto por somente números repetidos.
+- Falha na digitação do número do documento.
+- Informar uma quantidade de números menor do que o esperado. 
 
 
 ## Validação do documento CNPJ
@@ -129,35 +130,36 @@ A verificação da validade de um CNPJ é importante para garantir que o número
 
 ## Exemplos de utilização
 
-### Validar um documento CNPJ
+### Validar um documento
 
 ```javascript
-const cnpjs = require('./exemplos/examples-cnpjs');
-const validateCNPJ = require('./src/validateCNPJ');
+const CNPJ = require("./src/CNPJ");
+
+const cnpj = "529.982.247-25";
 
 try {
-  const result = validateCNPJ('11.111.111/1111-11');
-  console.log({ result: result })
-} catch ({ cause }) {
-  console.log(cause)
+  const result = new CNPJ(cnpj);
+  console.log(result.validate());
+} catch (error) {
+  console.log(error.message)
 }
+
 ```
 
 <details>
 <summary>Exemplo de saída</summary>
 
 ```javascript
-// CNPJ válido
-{ valid: true, cnpj: '11.222.333/0001-81' }
-```
-
-```javascript
-// CNPJ Inválido
+// console.log(result)
 {
-  valid: false,
-  cnpj: '11.111.111/1111-11',
-  message: 'Documento contém todos os números iguais.'
+  document: '01.851.716/0001-65',
+  type: 'CNPJ',
+  isValid: true,
+  isMatriz: true
 }
+
+// console.log(error.message)
+Documento CNPJ "0185171600166" inválido.
 ```
 
 </details>
@@ -166,39 +168,42 @@ try {
 
 ### Validar vários documentos CNPJ
 ```javascript
-const cnpjs = require('./exemplos/examples-cnpjs');
-const validateCNPJ = require('./src/validateCNPJ');
+const { cnpjs } = require('./exemplos/cpfCnpj');
 
-// Valida vários CNPJs
-cnpjs.forEach((cnpj) => {
+const CNPJ = require("./src/CNPJ");
+
+for (const cnpj of cnpjs) {
   try {
-    const result = validateCNPJ(cnpj);
-    console.log(result)
-  } catch ({ cause }) {
-    console.log(cause)
+    const result = new CNPJ(cnpj);
+    console.log(result.validate());
+  } catch (error) {
+    console.log(error.message)
   }
-});
-
+}
 ```
 
 <details>
 <summary>Exemplo de saída</summary>
 
 ```javascript
-// Saída no terminal
-{ 
-  valid: true, 
-  cnpj: '11.222.333/0001-81' 
-  }
+// console.log(result)
 {
-  valid: false,
-  cnpj: '28.562.509/0001-79',
-  message: 'Digito verificador inválido.'
+  document: '01.851.716/0001-65',
+  type: 'CNPJ',
+  isValid: true,
+  isMatriz: true
 }
-{ 
-  valid: true, 
-  cnpj: '01.851.716/0001-65' 
-a}
+{
+  document: '01.851.716/0001-65',
+  type: 'CNPJ',
+  isValid: true,
+  isMatriz: true
+}
+// console.log(error.message)
+Documento CNPJ "0185171600165" inválido.
+Documento CNPJ "28.562.509/0001-79" inválido.
+Documento CNPJ "11.111.111/1111-11" inválido.
+Documento CNPJ "22.222.222/2222-22" inválido.
 ```
 
 </details>
