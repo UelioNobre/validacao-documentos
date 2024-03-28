@@ -1,6 +1,6 @@
 # validacao-documentos
 
-O objetivo deste repositório é fornecer funcionalidades simples e eficazes para validar números de CPF (Cadastro de Pessoa Física) e CNPJ (Cadastro Nacional da Pessoa Jurídica) em projetos JavaScript.
+O objetivo deste projeto é fornecer funcionalidades simples e eficazes para validar números de CPF (Cadastro de Pessoa Física) e CNPJ (Cadastro Nacional da Pessoa Jurídica) em projetos JavaScript.
 
 ## Validação do documento CPF
 
